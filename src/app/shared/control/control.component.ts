@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -9,13 +9,15 @@ import { Component, Input, ViewEncapsulation, HostListener } from '@angular/core
   encapsulation: ViewEncapsulation.None, // css become global
   host: {
     class: 'control', // add class to  app-control, one place to define common property
-    // '(click)': 'onClick()'
+    '(click)': 'onClick()'
   }
 })
 export class ControlComponent {
   @Input({ required: true }) label!: string;
 
-  @HostListener('click') onClick() {
-    console.log('clicked');
+  private el = inject(ElementRef);
+
+  onClick() {
+    console.log(this.el)
   }
 }
