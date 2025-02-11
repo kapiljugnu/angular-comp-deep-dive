@@ -1,4 +1,4 @@
-import { Component, contentChild, ContentChild, ElementRef, inject, Input, ViewEncapsulation } from '@angular/core';
+import { afterNextRender, afterRender, Component, contentChild, ContentChild, ElementRef, inject, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -14,6 +14,16 @@ import { Component, contentChild, ContentChild, ElementRef, inject, Input, ViewE
 })
 export class ControlComponent {
   @Input({ required: true }) label!: string;
+
+  constructor () {
+    afterRender(()=> {
+      console.log('afterRender');
+    })
+
+    afterNextRender(()=>{
+      console.log('afterNextRender');
+    })
+  }
 
   private el = inject(ElementRef);
 
